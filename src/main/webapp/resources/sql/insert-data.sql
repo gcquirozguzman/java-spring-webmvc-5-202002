@@ -1,0 +1,1 @@
+insert  into `Employee`(`id`,`nombre`,`apellido`,`edad`,`salario`,`sexo`) values (1,'Jose','Cabanillas',20,15000.0,'Masculino'),(2,'Maria','Quispe',25,8000.0,'Femenino'),(3,'Jesus','Bringas',29,5000.0,'Masculino');
