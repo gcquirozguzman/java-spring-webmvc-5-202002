@@ -2,8 +2,8 @@ package com.demo.canonic;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import com.demo.validator.Sexo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -39,6 +38,25 @@ public class Employee implements Serializable{
 	@NotNull(message = "Ingrese salario")
 	private BigDecimal salario;	
 	
+	@NotNull(message = "Ingrese fecha de nacimiento")
+	private Date fechaNacimiento;
+	
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public List<Studie> getStudies() {
+		return studies;
+	}
+
+	public void setStudies(List<Studie> studies) {
+		this.studies = studies;
+	}
+
 	@Sexo
 	@NotEmpty(message = "Ingrese sexo")
 	private String sexo;

@@ -2,6 +2,7 @@ package com.demo.facade.employee.v0.impl;
 
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,9 @@ public class StudieConrollerV0 implements IStudieConrollerV0 {
 	@Autowired
     private IStudieService iStudieService;
 	
+	@Value("${dateFormat}")
+	String dateFormat;
+	
 	@Override
 	public Studie createStudie(Studie studie) {
 		// TODO Auto-generated method stub
@@ -27,6 +31,7 @@ public class StudieConrollerV0 implements IStudieConrollerV0 {
 	@RequestMapping(value = "/studies", method = RequestMethod.GET)
     @Override
     public @ResponseBody Studies listStudie() {
+		System.out.println(dateFormat);
 		// Necesito la pagina 2. Considerando que se cuentan registros de 20 en 20.
         return iStudieService.listStudie(2);
     }

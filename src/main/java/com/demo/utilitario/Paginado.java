@@ -1,13 +1,6 @@
 package com.demo.utilitario;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-
-@PropertySource(value= {"classpath:resources/properties/paginacion.properties"})
 public class Paginado {
-	
-	@Value("${cantidad.registros.pagina}")
-    private static String cantidad_registros_paginado;
 	
 	public static String tramaPaginacion(int pagina) {
 		Integer valor_1 = Integer.parseInt("20"); // Pendiente que llame el properties
