@@ -12,10 +12,10 @@ CREATE TABLE `Employee` (
 
 --Tabla detalle de estudios de empleado
 
-CREATE TABLE `Studies` (
+CREATE TABLE `Studie` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `employee` int(10) NOT NULL,
+  `idEmployee` int(10) NOT NULL,
   `studie` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  foreign key (employee) references Employee(id)
+  foreign key (idEmployee) references Employee(id)
 );

@@ -52,8 +52,8 @@ values
 (49,'Nombre 49','Apellido 49',69,59000.0,'Masculino'),
 (50,'Nombre 50','Apellido 50',69,69000.0,'Masculino');
 
-insert  into `Studies`
-(`id`,`employee`,`studie`) 
+insert  into `Studie`
+(`id`,`idEmployee`,`studie`) 
 values 
 (1,1,'Studie 1.1'),
 (2,1,'Studie 1.2'),

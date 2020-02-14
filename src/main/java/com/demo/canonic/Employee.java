@@ -2,13 +2,20 @@ package com.demo.canonic;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
 import com.demo.validator.Sexo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Employee implements Serializable{
@@ -35,6 +42,10 @@ public class Employee implements Serializable{
 	@Sexo
 	@NotEmpty(message = "Ingrese sexo")
 	private String sexo;
+	
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@JsonManagedReference
+	private List<Studie> studies;
 	
 	public Long getId() {
 		return id;

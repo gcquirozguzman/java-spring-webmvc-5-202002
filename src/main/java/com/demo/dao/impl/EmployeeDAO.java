@@ -19,11 +19,13 @@ public class EmployeeDAO implements IEmployeeDAO {
     public Employee createEmployee(Employee employee) {
         return null;
     }
+    
     @Transactional
     @Override
     public Employees listEmployee() {
         List<Employee> employeeList = (List<Employee>) jdbcTemplate.query("select * from Employee",
                 new EmployeeListRowMapper());
+        
         Employees employees = new Employees();
         employees.setData(employeeList);
         return employees;

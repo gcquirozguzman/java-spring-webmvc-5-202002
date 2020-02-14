@@ -1,9 +1,11 @@
 package com.demo.canonic;
 
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
@@ -17,6 +19,7 @@ public class Studie implements Serializable{
 	private Long id;
 	
 	@ManyToOne
+	@JoinColumn(name="idEmployee")
     private Employee employee;
 	
 	@NotEmpty(message = "Ingrese descripcion de estudio")

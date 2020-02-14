@@ -6,5 +6,7 @@ import com.demo.canonic.Employees;
 public interface IEmployeeConrollerV0 {
     Employee createEmployee(Employee employee);
     Employees listEmployee();
+    void deleteEmployee(Long idEmployee);
+    Employees updateEmployee(Employee employee);
     Employee getEmployee(Long idEmployee);
 }

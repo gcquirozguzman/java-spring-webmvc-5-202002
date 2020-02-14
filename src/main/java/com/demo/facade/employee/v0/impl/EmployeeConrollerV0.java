@@ -37,4 +37,16 @@ public class EmployeeConrollerV0 implements IEmployeeConrollerV0 {
     public Employee getEmployee(Long idEmployee) {
         return null;
     }
+
+	@Override
+	public void deleteEmployee(Long idEmployee) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Employees updateEmployee(Employee employee) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
