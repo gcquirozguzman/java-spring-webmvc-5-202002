@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.bussines.IStudieService;
 import com.demo.canonic.Studie;
 import com.demo.canonic.Studies;
-import com.demo.facade.employee.v0.IStudieConrollerV0;
+import com.demo.facade.employee.v0.IStudieControllerV0;
 
 @RestController
 @RequestMapping(path = "/studies/v0", produces = MediaType.APPLICATION_JSON_VALUE)
-public class StudieConrollerV0 implements IStudieConrollerV0 {
+public class StudieControllerV0 implements IStudieControllerV0 {
 
 	@Autowired
     private IStudieService iStudieService;
@@ -31,8 +31,7 @@ public class StudieConrollerV0 implements IStudieConrollerV0 {
 	@RequestMapping(value = "/studies", method = RequestMethod.GET)
     @Override
     public @ResponseBody Studies listStudie() {
-		System.out.println(dateFormat);
-		// Necesito la pagina 2. Considerando que se cuentan registros de 20 en 20.
+		// Supongamos que necesito la pagina 2
         return iStudieService.listStudie(2);
     }
 

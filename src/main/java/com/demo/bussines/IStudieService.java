@@ -1,7 +1,12 @@
 package com.demo.bussines;
 
+import com.demo.canonic.Studie;
 import com.demo.canonic.Studies;
 
 public interface IStudieService {
-    Studies listStudie(int pagina);
+    Studie createStudie(Studie studie);
+	Studies listStudie(int pagina);
+    void deleteStudie(Long idStudie);
+    Studies updateStudie(Studie studie);
+    Studie getStudie(Long idStudie);
 }

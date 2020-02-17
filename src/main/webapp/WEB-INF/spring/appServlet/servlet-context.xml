@@ -65,9 +65,9 @@
     
     <beans:bean id="dbProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <beans:property name="locations">	    	
-		    <beans:list>
-			    <beans:value>/resources/db.properties</beans:value>
+		    <beans:list>			    
 			    <beans:value>/resources/application.properties</beans:value>
+			    <beans:value>/resources/paginacion.properties</beans:value>
 		    </beans:list>
 	    </beans:property>
 	</beans:bean>

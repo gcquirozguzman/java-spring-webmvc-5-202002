@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.demo.bussines.IStudieService;
+import com.demo.canonic.Studie;
 import com.demo.canonic.Studies;
 import com.demo.dao.IStudieDAO;
 
@@ -16,6 +17,26 @@ public class StudieService implements IStudieService{
 	@Override
 	public Studies listStudie(int pagina) {
 		return iStudieDAO.listStudie(pagina);
+	}
+
+	@Override
+	public Studie createStudie(Studie studie) {
+		return iStudieDAO.createStudie(studie);
+	}
+
+	@Override
+	public void deleteStudie(Long idStudie) {
+		iStudieDAO.deleteStudie(idStudie);
+	}
+
+	@Override
+	public Studies updateStudie(Studie studie) {
+		return iStudieDAO.updateStudie(studie);
+	}
+
+	@Override
+	public Studie getStudie(Long idStudie) {
+		return iStudieDAO.getStudie(idStudie);
 	}
 
 }

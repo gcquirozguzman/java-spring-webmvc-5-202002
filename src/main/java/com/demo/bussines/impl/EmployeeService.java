@@ -15,11 +15,27 @@ public class EmployeeService implements IEmployeeService{
 
     @Override
     public Employee createEmployee(Employee employee) {
-        return null;
+        return iEmployeeDAO.createEmployee(employee);
     }
 
     @Override
-    public Employees listEmployee() {
-        return iEmployeeDAO.listEmployee();
+    public Employees listEmployee(int pagina) {
+        return iEmployeeDAO.listEmployee(pagina);
     }
+
+	@Override
+	public void deleteEmployee(Long idEmployee) {
+		iEmployeeDAO.deleteEmployee(idEmployee);
+		
+	}
+
+	@Override
+	public Employees updateEmployee(Employee employee) {
+		return iEmployeeDAO.updateEmployee(employee);
+	}
+
+	@Override
+	public Employee getEmployee(Long idEmployee) {
+		return iEmployeeDAO.getEmployee(idEmployee);
+	}
 }
