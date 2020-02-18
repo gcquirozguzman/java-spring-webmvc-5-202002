@@ -1,16 +1,19 @@
 package com.demo.dao.impl;
 
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.demo.canonic.Employee;
 import com.demo.canonic.Employees;
 import com.demo.dao.IEmployeeDAO;
 import com.demo.dao.rowmapper.EmployeeListRowMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.util.List;
 @Component
 public class EmployeeDAO implements IEmployeeDAO {
     @Autowired
@@ -18,14 +21,22 @@ public class EmployeeDAO implements IEmployeeDAO {
 
     @Override
     public Employee createEmployee(Employee employee) {
-    	
-//    	String query = 
-//    	"INSERT INTO EMPLOYEE(NOMBRE,APELLIDO,EDAD,SALARIO,SEXO) " +
-//    	"VALUES (?,?,?,?,?)";
-//    	
-//    	int row = jdbcTemplate.update(query, "Gian", "Quiroz", 20, new BigDecimal(20000), "Masculino");
-//    	System.out.println(row);
-        return employee;
+    	KeyHolder keyHolder = new GeneratedKeyHolder();
+    	String query = "INSERT INTO EMPLOYEE(NOMBRE,APELLIDO,EDAD,SALARIO,SEXO) VALUES (?,?,?,?,?)";
+    	jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection
+              .prepareStatement(query);
+            	ps.setString(1, employee.getNombre());
+            	ps.setString(2, employee.getApellido());
+            	ps.setLong(3, employee.getEdad());
+            	ps.setBigDecimal(4, employee.getSalario());
+            	ps.setString(5, employee.getSexo());              
+              return ps;
+            }, keyHolder);
+    	long idGenerado = (long) keyHolder.getKey();
+    	employee.setId(idGenerado);
+    	return employee;
+
     }
 
 	@Override
