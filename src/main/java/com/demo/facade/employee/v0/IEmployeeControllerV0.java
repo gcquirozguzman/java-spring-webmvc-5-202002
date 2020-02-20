@@ -7,6 +7,6 @@ public interface IEmployeeControllerV0 {
     Employee createEmployee(Employee employee);
     Employees listEmployee();
     void deleteEmployee(Long idEmployee);
-    Employees updateEmployee(Employee employee);
+    Employee updateEmployee(Employee employee);
     Employee getEmployee(Long idEmployee);
 }

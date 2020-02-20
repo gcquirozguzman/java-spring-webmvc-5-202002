@@ -51,19 +51,32 @@ public class EmployeeDAO implements IEmployeeDAO {
 
 	@Override
 	public void deleteEmployee(Long idEmployee) {
-		// TODO Auto-generated method stub
-		
+		jdbcTemplate.update("delete from Employee where id = ?", new Object[] {idEmployee});
 	}
 
 	@Override
-	public Employees updateEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-		return null;
+	public Employee updateEmployee(Employee employee) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+    	String query = "UPDATE EMPLOYEE SET NOMBRE=?,APELLIDO=?,EDAD=?,SALARIO=?,SEXO=? WHERE ID = ?";
+    	jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection
+              .prepareStatement(query);
+            	ps.setString(1, employee.getNombre());
+            	ps.setString(2, employee.getApellido());
+            	ps.setLong(3, employee.getEdad());
+            	ps.setBigDecimal(4, employee.getSalario());
+            	ps.setString(5, employee.getSexo());
+            	ps.setLong(6, employee.getId());
+              return ps;
+            }, keyHolder);
+		return employee;
 	}
 
 	@Override
 	public Employee getEmployee(Long idEmployee) {
-		// TODO Auto-generated method stub
-		return null;
+		Employee employee = (Employee)jdbcTemplate
+				.queryForObject("select * from Employee where id = ?", 
+				new Object[] {idEmployee}, new EmployeeListRowMapper());
+		return employee;
 	}
 }

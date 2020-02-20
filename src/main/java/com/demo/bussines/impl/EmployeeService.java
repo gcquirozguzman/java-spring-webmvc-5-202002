@@ -30,7 +30,7 @@ public class EmployeeService implements IEmployeeService{
 	}
 
 	@Override
-	public Employees updateEmployee(Employee employee) {
+	public Employee updateEmployee(Employee employee) {
 		return iEmployeeDAO.updateEmployee(employee);
 	}
 

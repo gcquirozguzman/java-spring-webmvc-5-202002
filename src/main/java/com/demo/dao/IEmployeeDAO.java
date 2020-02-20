@@ -7,6 +7,6 @@ public interface IEmployeeDAO {
 	Employee createEmployee(Employee employee);
     Employees listEmployee(int pagina);
     void deleteEmployee(Long idEmployee);
-    Employees updateEmployee(Employee employee);
+    Employee updateEmployee(Employee employee);
     Employee getEmployee(Long idEmployee);
 }

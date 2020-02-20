@@ -36,18 +36,16 @@ public class EmployeeControllerV0 implements IEmployeeControllerV0 {
 
     @Override
     public Employee getEmployee(Long idEmployee) {
-        return null;
+    	return iEmployeeService.getEmployee(idEmployee);
     }
 
 	@Override
 	public void deleteEmployee(Long idEmployee) {
-		// TODO Auto-generated method stub
-		
+		iEmployeeService.deleteEmployee(idEmployee);
 	}
 
 	@Override
-	public Employees updateEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-		return null;
+	public Employee updateEmployee(Employee employee) {
+		return iEmployeeService.updateEmployee(employee);
 	}
 }
