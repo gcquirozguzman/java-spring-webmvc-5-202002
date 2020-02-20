@@ -4,48 +4,22 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import com.demo.validator.Sexo;
-
-@Entity
-@NamedQueries(
-		@NamedQuery(name = "Employee.insert", query = "INSERT INTO EMPLOYEE(NOMBRE,APELLIDO,EDAD,SALARIO,SEXO) VALUES (?,?,?,?,?)")
-)
 public class Employee implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private Long id;
 	
-	@NotEmpty(message = "Ingrese nombre")
     private String nombre;
 	
-	@NotEmpty(message = "Ingrese apellido")
 	private String apellido;
 	
-	@NotNull(message = "Ingrese edad")
 	private Long edad;
 	
-	@DecimalMin("850.00")
-	@NotNull(message = "Ingrese salario")
 	private BigDecimal salario;	
 	
-	@NotNull(message = "Ingrese fecha de nacimiento")
 	private Date fechaNacimiento;
 	
-	@Sexo
-	@NotEmpty(message = "Ingrese sexo")
 	private String sexo;
 	
 	public Date getFechaNacimiento() {

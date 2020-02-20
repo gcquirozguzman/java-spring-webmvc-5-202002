@@ -43,8 +43,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 	@Transactional
 	public Employees listEmployee(int pagina) {
 		List<Employee> employeeList = (List<Employee>) jdbcTemplate.query("select * from Employee",
-                new EmployeeListRowMapper());
-        
+                new EmployeeListRowMapper());        
         Employees employees = new Employees();
         employees.setData(employeeList);
         return employees;
