@@ -12,7 +12,7 @@ public class StudieListRowMapper implements RowMapper<Studie> {
     public Studie mapRow(ResultSet resultSet, int i) throws SQLException {
     	Studie studie = new Studie();
     	studie.setId(resultSet.getLong("STUDIE.ID"));
-    	studie.setStudie(resultSet.getString("STUDIE.STUDIE"));
+    	studie.setDescripcion(resultSet.getString("STUDIE.DESCRIPCION"));
     	Employee employee = new Employee();
     	employee.setId(resultSet.getLong("EMPLOYEE.ID"));
     	employee.setNombre(resultSet.getString("EMPLOYEE.NOMBRE"));

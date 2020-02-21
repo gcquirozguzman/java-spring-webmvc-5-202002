@@ -13,7 +13,7 @@ public class Studie implements Serializable{
 	
     private Employee employee;
 	
-	private String studie;
+	private String descripcion;
 
 	public Long getId() {
 		return id;
@@ -31,12 +31,12 @@ public class Studie implements Serializable{
 		this.employee = employee;
 	}
 
-	public String getStudie() {
-		return studie;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setStudie(String studie) {
-		this.studie = studie;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

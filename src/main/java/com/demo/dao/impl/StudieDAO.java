@@ -1,10 +1,13 @@
 package com.demo.dao.impl;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,40 +29,58 @@ public class StudieDAO implements IStudieDAO {
 	@Override
 	@Transactional
 	public Studies listStudie(int pagina) {
-		
 		List<Studie> studieList = (List<Studie>) jdbcTemplate.query
-				("select * from Studie a left join Employee b " +
-				 "on a.idEmployee = b.id "+Paginado.tramaPaginacion(pagina, registrosPagina),
+				("SELECT * FROM STUDIE A LEFT JOIN EMPLOYEE B " +
+				 "ON A.IDEMPLOYEE = B.ID "+Paginado.tramaPaginacion(pagina, registrosPagina),
                 new StudieListRowMapper());
-        
 		Studies studies = new Studies();
 		studies.setData(studieList);
-		
         return studies;
 	}
 
 	@Override
 	public Studie createStudie(Studie studie) {
-		// TODO Auto-generated method stub
-		return null;
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+    	String query = "INSERT INTO STUDIE(IDEMPLOYEE,DESCRIPCION) VALUES (?,?)";
+    	jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection
+              .prepareStatement(query);
+            	ps.setLong(1, studie.getEmployee().getId());
+            	ps.setString(2, studie.getDescripcion());
+              return ps;
+            }, keyHolder);
+    	
+    	Long idGenerado = (long) keyHolder.getKey().intValue();
+    	studie.setId(idGenerado);    	
+    	return studie;
 	}
 
 	@Override
 	public void deleteStudie(Long idStudie) {
-		// TODO Auto-generated method stub
-		
+		jdbcTemplate.update("DELETE FROM STUDIE WHERE ID = ?", new Object[] {idStudie});
 	}
 
 	@Override
-	public Studies updateStudie(Studie studie) {
-		// TODO Auto-generated method stub
-		return null;
+	public Studie updateStudie(Studie studie) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+    	String query = "UPDATE STUDIE SET IDEMPLOYEE=?,DESCRIPCION=? WHERE ID = ?";
+    	jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection
+              .prepareStatement(query);
+            	ps.setLong(1, studie.getEmployee().getId());
+            	ps.setString(2, studie.getDescripcion());
+            	ps.setLong(3, studie.getId());
+              return ps;
+            }, keyHolder);
+		return studie;
 	}
 
 	@Override
 	public Studie getStudie(Long idStudie) {
-		// TODO Auto-generated method stub
-		return null;
+		Studie studie = (Studie)jdbcTemplate
+				.queryForObject("SELECT * FROM STUDIE WHERE ID = ?", 
+				new Object[] {idStudie}, new StudieListRowMapper());
+		return studie;
 	}
     
 }

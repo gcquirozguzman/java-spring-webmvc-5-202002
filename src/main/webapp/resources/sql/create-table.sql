@@ -15,7 +15,7 @@ CREATE TABLE `Employee` (
 CREATE TABLE `Studie` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `idEmployee` int(10) NOT NULL,
-  `studie` varchar(100) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   foreign key (idEmployee) references Employee(id)
 );

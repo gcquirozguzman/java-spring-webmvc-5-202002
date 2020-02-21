@@ -7,6 +7,6 @@ public interface IStudieDAO {
 	Studie createStudie(Studie studie);
 	Studies listStudie(int pagina);
     void deleteStudie(Long idStudie);
-    Studies updateStudie(Studie studie);
+    Studie updateStudie(Studie studie);
     Studie getStudie(Long idStudie);
 }

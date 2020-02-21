@@ -53,7 +53,7 @@ values
 ('Nombre 50','Apellido 50',69,69000.0,'Masculino');
 
 insert  into `Studie`
-(`idEmployee`,`studie`) 
+(`idEmployee`,`descripcion`) 
 values 
 (1,'Studie 1.1'),
 (1,'Studie 1.2'),

@@ -2,23 +2,28 @@ package com.demo.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.demo.canonic.Employee;
 import com.demo.canonic.Employees;
 import com.demo.dao.IEmployeeDAO;
 import com.demo.dao.rowmapper.EmployeeListRowMapper;
+import com.demo.utilitario.Paginado;
+
 @Component
 public class EmployeeDAO implements IEmployeeDAO {
+	
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Value("${cantidad.registros.pagina}")
+    int registrosPagina;
+    
     @Override
     public Employee createEmployee(Employee employee) {
     	KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -43,8 +48,9 @@ public class EmployeeDAO implements IEmployeeDAO {
 	@Override
 	@Transactional
 	public Employees listEmployee(int pagina) {
-		List<Employee> employeeList = (List<Employee>) jdbcTemplate.query("select * from Employee",
-                new EmployeeListRowMapper());        
+		List<Employee> employeeList = (List<Employee>) jdbcTemplate.query
+				("SELECT * FROM EMPLOYEE "+Paginado.tramaPaginacion(pagina, registrosPagina),
+                new EmployeeListRowMapper());
         Employees employees = new Employees();
         employees.setData(employeeList);
         return employees;
@@ -52,7 +58,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
 	@Override
 	public void deleteEmployee(Long idEmployee) {
-		jdbcTemplate.update("delete from Employee where id = ?", new Object[] {idEmployee});
+		jdbcTemplate.update("DELETE FROM EMPLOYEE WHERE ID = ?", new Object[] {idEmployee});
 	}
 
 	@Override
@@ -76,7 +82,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 	@Override
 	public Employee getEmployee(Long idEmployee) {
 		Employee employee = (Employee)jdbcTemplate
-				.queryForObject("select * from Employee where id = ?", 
+				.queryForObject("SELECT * FROM EMPLOYEE WHERE ID = ?", 
 				new Object[] {idEmployee}, new EmployeeListRowMapper());
 		return employee;
 	}
