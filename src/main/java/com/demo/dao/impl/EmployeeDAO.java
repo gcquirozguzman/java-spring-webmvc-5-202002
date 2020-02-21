@@ -33,8 +33,9 @@ public class EmployeeDAO implements IEmployeeDAO {
             	ps.setString(5, employee.getSexo());              
               return ps;
             }, keyHolder);
-    	long idGenerado = (long) keyHolder.getKey();
-    	employee.setId(idGenerado);
+    	
+    	Long idGenerado = (long) keyHolder.getKey().intValue();
+    	employee.setId(idGenerado);    	
     	return employee;
 
     }
