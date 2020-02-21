@@ -30,7 +30,7 @@ public class StudieService implements IStudieService{
 	}
 
 	@Override
-	public Studies updateStudie(Studie studie) {
+	public Studie updateStudie(Studie studie) {
 		return iStudieDAO.updateStudie(studie);
 	}
 
