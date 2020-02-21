@@ -78,7 +78,7 @@ public class StudieDAO implements IStudieDAO {
 	@Override
 	public Studie getStudie(Long idStudie) {
 		Studie studie = (Studie)jdbcTemplate
-				.queryForObject("SELECT * FROM STUDIE WHERE ID = ?", 
+				.queryForObject("SELECT * FROM STUDIE A LEFT JOIN EMPLOYEE B ON A.IDEMPLOYEE = B.ID WHERE A.ID = ?", 
 				new Object[] {idStudie}, new StudieListRowMapper());
 		return studie;
 	}

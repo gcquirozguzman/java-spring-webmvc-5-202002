@@ -1,9 +1,7 @@
 package com.demo.facade.employee.v0.impl;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.demo.bussines.IStudieService;
 import com.demo.canonic.Studie;
 import com.demo.canonic.Studies;
@@ -29,8 +25,8 @@ public class StudieControllerV0 implements IStudieControllerV0 {
 	@Autowired
     private IStudieService iStudieService;
 	
+	@Override
 	@PostMapping("crear")
-    @ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<Response> createStudie(@Valid @RequestBody Studie studie) {
 		Response response = new Response();
 		try {
