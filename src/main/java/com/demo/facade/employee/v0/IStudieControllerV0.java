@@ -5,8 +5,8 @@ import com.demo.canonic.Studies;
 
 public interface IStudieControllerV0 {
 	Studie createStudie(Studie studie);
-	Studies listStudie();
+	Studies listStudie(int pagina);
     void deleteStudie(Long idStudie);
-    Studies updateStudie(Studie studie);
+    Studie updateStudie(Studie studie);
     Studie getStudie(Long idStudie);
 }

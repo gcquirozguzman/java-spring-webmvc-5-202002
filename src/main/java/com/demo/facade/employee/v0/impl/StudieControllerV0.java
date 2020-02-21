@@ -1,11 +1,17 @@
 package com.demo.facade.employee.v0.impl;
 
-import org.springframework.http.MediaType;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.demo.bussines.IStudieService;
 import com.demo.canonic.Studie;
@@ -13,44 +19,42 @@ import com.demo.canonic.Studies;
 import com.demo.facade.employee.v0.IStudieControllerV0;
 
 @RestController
-@RequestMapping(path = "/studies/v0", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping("/studies/v0/")
 public class StudieControllerV0 implements IStudieControllerV0 {
 
 	@Autowired
     private IStudieService iStudieService;
 	
-	@Value("${dateFormat}")
-	String dateFormat;
-	
-	@Override
-	public Studie createStudie(Studie studie) {
-		// TODO Auto-generated method stub
-		return null;
+	@PostMapping("studies")
+    @ResponseStatus(code = HttpStatus.CREATED)
+	public Studie createStudie(@Valid @RequestBody Studie studie) {
+		return iStudieService.createStudie(studie);
 	}
 
-	@RequestMapping(value = "/studies", method = RequestMethod.GET)
-    @Override
-    public @ResponseBody Studies listStudie() {
-		// Supongamos que necesito la pagina 2
-        return iStudieService.listStudie(2);
+	@Override
+    @GetMapping("studies/{pagina}")
+    public @ResponseBody Studies listStudie(@PathVariable int pagina) {
+        return iStudieService.listStudie(pagina);
     }
 
 	@Override
-	public void deleteStudie(Long idStudie) {
-		// TODO Auto-generated method stub
-		
+	@GetMapping("studies/{idStudie}")
+	public Studie getStudie(@PathVariable Long idStudie) {
+		return iStudieService.getStudie(idStudie);
+	}
+	
+	@Override
+	@DeleteMapping("studies/{idStudie}")
+	public void deleteStudie(@PathVariable Long idStudie) {
+		iStudieService.deleteStudie(idStudie);
 	}
 
 	@Override
-	public Studies updateStudie(Studie studie) {
-		// TODO Auto-generated method stub
-		return null;
+	@PutMapping("studies")
+	public Studie updateStudie(@RequestBody Studie studie) {
+		return iStudieService.updateStudie(studie);
 	}
 
-	@Override
-	public Studie getStudie(Long idStudie) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 }

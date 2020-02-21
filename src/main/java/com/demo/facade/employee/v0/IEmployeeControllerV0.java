@@ -5,7 +5,7 @@ import com.demo.canonic.Employees;
 
 public interface IEmployeeControllerV0 {
     Employee createEmployee(Employee employee);
-    Employees listEmployee();
+    Employees listEmployee(int pagina);
     void deleteEmployee(Long idEmployee);
     Employee updateEmployee(Employee employee);
     Employee getEmployee(Long idEmployee);
