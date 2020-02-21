@@ -1,12 +1,14 @@
 package com.demo.facade.employee.v0;
 
+import org.springframework.http.ResponseEntity;
+
 import com.demo.canonic.Studie;
-import com.demo.canonic.Studies;
+import com.demo.utilitario.Response;
 
 public interface IStudieControllerV0 {
-	Studie createStudie(Studie studie);
-	Studies listStudie(int pagina);
-    void deleteStudie(Long idStudie);
-    Studie updateStudie(Studie studie);
-    Studie getStudie(Long idStudie);
+	ResponseEntity<Response> createStudie(Studie studie);
+	ResponseEntity<Response> listStudie(int pagina);
+	ResponseEntity<Response> deleteStudie(Long idStudie);
+	ResponseEntity<Response> updateStudie(Studie studie);
+	ResponseEntity<Response> getStudie(Long idStudie);
 }
