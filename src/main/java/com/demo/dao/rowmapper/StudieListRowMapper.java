@@ -13,6 +13,7 @@ public class StudieListRowMapper implements RowMapper<Studie> {
     	Studie studie = new Studie();
     	studie.setId(resultSet.getLong("STUDIE.ID"));
     	studie.setDescripcion(resultSet.getString("STUDIE.DESCRIPCION"));
+    	studie.setEstado(resultSet.getString("STUDIE.ESTADO"));
     	Employee employee = new Employee();
     	employee.setId(resultSet.getLong("EMPLOYEE.ID"));
     	employee.setNombre(resultSet.getString("EMPLOYEE.NOMBRE"));

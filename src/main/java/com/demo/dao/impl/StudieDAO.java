@@ -15,7 +15,9 @@ import com.demo.canonic.Studie;
 import com.demo.canonic.Studies;
 import com.demo.dao.IStudieDAO;
 import com.demo.dao.rowmapper.StudieListRowMapper;
+import com.demo.utilitario.DescripcionValor;
 import com.demo.utilitario.Paginado;
+import com.demo.utilitario.Valores;
 
 @Component
 public class StudieDAO implements IStudieDAO {
@@ -26,22 +28,39 @@ public class StudieDAO implements IStudieDAO {
     @Value("${cantidad.registros.pagina}")
     int registrosPagina;
     
+    @Value("${cadenaValores}")
+    String cadenaValores;
+    
+    @Value("${query.studieDAO.createStudie}")
+    String createStudie;
+    
+    @Value("${query.studieDAO.listStudie}")
+    String listStudie;
+    
+    @Value("${query.studieDAO.deleteStudie}")
+    String deleteStudie;
+    
+    @Value("${query.studieDAO.updateStudie}")
+    String updateStudie;
+    
+    @Value("${query.studieDAO.getStudie}")
+    String getStudie;
+    
 	@Override
 	@Transactional
 	public Studies listStudie(int pagina) {
 		List<Studie> studieList = (List<Studie>) jdbcTemplate.query
-				("SELECT * FROM STUDIE A LEFT JOIN EMPLOYEE B " +
-				 "ON A.IDEMPLOYEE = B.ID "+Paginado.tramaPaginacion(pagina, registrosPagina),
+				(createStudie+Paginado.tramaPaginacion(pagina, registrosPagina),
                 new StudieListRowMapper());
 		Studies studies = new Studies();
 		studies.setData(studieList);
-        return studies;
+        return (Studies) DescripcionValor.cambiarDescripcionValor(studies, Valores.studies, cadenaValores);
 	}
 
 	@Override
 	public Studie createStudie(Studie studie) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-    	String query = "INSERT INTO STUDIE(IDEMPLOYEE,DESCRIPCION) VALUES (?,?)";
+    	String query = listStudie;
     	jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
               .prepareStatement(query);
@@ -57,13 +76,13 @@ public class StudieDAO implements IStudieDAO {
 
 	@Override
 	public void deleteStudie(Long idStudie) {
-		jdbcTemplate.update("DELETE FROM STUDIE WHERE ID = ?", new Object[] {idStudie});
+		jdbcTemplate.update(deleteStudie, new Object[] {idStudie});
 	}
 
 	@Override
 	public Studie updateStudie(Studie studie) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-    	String query = "UPDATE STUDIE SET IDEMPLOYEE=?,DESCRIPCION=? WHERE ID = ?";
+    	String query = updateStudie;
     	jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
               .prepareStatement(query);
@@ -78,9 +97,9 @@ public class StudieDAO implements IStudieDAO {
 	@Override
 	public Studie getStudie(Long idStudie) {
 		Studie studie = (Studie)jdbcTemplate
-				.queryForObject("SELECT * FROM STUDIE A LEFT JOIN EMPLOYEE B ON A.IDEMPLOYEE = B.ID WHERE A.ID = ?", 
+				.queryForObject(getStudie, 
 				new Object[] {idStudie}, new StudieListRowMapper());
-		return studie;
+		return (Studie) DescripcionValor.cambiarDescripcionValor(studie, Valores.studie, cadenaValores);
 	}
     
 }

@@ -68,6 +68,8 @@
 		    <beans:list>			    
 			    <beans:value>/resources/application.properties</beans:value>
 			    <beans:value>/resources/paginacion.properties</beans:value>
+			    <beans:value>/resources/valores.properties</beans:value>
+			    <beans:value>/resources/querys.properties</beans:value>
 		    </beans:list>
 	    </beans:property>
 	</beans:bean>

@@ -24,10 +24,25 @@ public class EmployeeDAO implements IEmployeeDAO {
     @Value("${cantidad.registros.pagina}")
     int registrosPagina;
     
+    @Value("${query.employeeDAO.createEmployee}")
+    String createEmployee;
+    
+    @Value("${query.employeeDAO.listEmployee}")
+    String listEmployee;
+    
+    @Value("${query.employeeDAO.deleteEmployee}")
+    String deleteEmployee;
+    
+    @Value("${query.employeeDAO.updateEmployee}")
+    String updateEmployee;
+    
+    @Value("${query.employeeDAO.getEmployee}")
+    String getEmployee;
+    
     @Override
     public Employee createEmployee(Employee employee) {
     	KeyHolder keyHolder = new GeneratedKeyHolder();
-    	String query = "INSERT INTO EMPLOYEE(NOMBRE,APELLIDO,EDAD,SALARIO,SEXO) VALUES (?,?,?,?,?)";
+    	String query = createEmployee;
     	jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
               .prepareStatement(query);
@@ -49,7 +64,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 	@Transactional
 	public Employees listEmployee(int pagina) {
 		List<Employee> employeeList = (List<Employee>) jdbcTemplate.query
-				("SELECT * FROM EMPLOYEE "+Paginado.tramaPaginacion(pagina, registrosPagina),
+				(listEmployee+Paginado.tramaPaginacion(pagina, registrosPagina),
                 new EmployeeListRowMapper());
         Employees employees = new Employees();
         employees.setData(employeeList);
@@ -58,13 +73,13 @@ public class EmployeeDAO implements IEmployeeDAO {
 
 	@Override
 	public void deleteEmployee(Long idEmployee) {
-		jdbcTemplate.update("DELETE FROM EMPLOYEE WHERE ID = ?", new Object[] {idEmployee});
+		jdbcTemplate.update(deleteEmployee, new Object[] {idEmployee});
 	}
 
 	@Override
 	public Employee updateEmployee(Employee employee) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-    	String query = "UPDATE EMPLOYEE SET NOMBRE=?,APELLIDO=?,EDAD=?,SALARIO=?,SEXO=? WHERE ID = ?";
+    	String query = updateEmployee;
     	jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
               .prepareStatement(query);
@@ -82,7 +97,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 	@Override
 	public Employee getEmployee(Long idEmployee) {
 		Employee employee = (Employee)jdbcTemplate
-				.queryForObject("SELECT * FROM EMPLOYEE WHERE ID = ?", 
+				.queryForObject(getEmployee, 
 				new Object[] {idEmployee}, new EmployeeListRowMapper());
 		return employee;
 	}

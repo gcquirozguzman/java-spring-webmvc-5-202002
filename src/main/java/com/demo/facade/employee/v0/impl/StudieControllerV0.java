@@ -2,6 +2,7 @@ package com.demo.facade.employee.v0.impl;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,8 +64,10 @@ public class StudieControllerV0 implements IStudieControllerV0 {
 		} catch (Exception e) {
 			response.setError(new Error("ERROR_GENERICO", e.toString()));
 		}
-		return ResponseEntity.ok()
-			      .body(response);
+		//return ResponseEntity.ok().body(response);
+		
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+		
 	}
 	
 	@Override
